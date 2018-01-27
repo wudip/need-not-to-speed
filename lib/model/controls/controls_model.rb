@@ -4,16 +4,17 @@ module NeedNotToSpeed
   # so, this class just decides what to do and calls appropriate method to
   # display the controls)
   class ControlsModel
-    def initialize(displayer)
+    def initialize(displayer, daddy)
       @displayer = displayer
-      @displayer.handler = self
+      @daddy = daddy
       display_menu
     end
 
     def display_menu
+      @buttons = { start: proc { start_game }, end: proc { exit } }
       @displayer.display_menu([{ title: 'Start', name: 'start' },
                                { title: 'End', name: 'end' }])
-      @buttons = { start: proc { start_game }, end: proc { exit } }
+      @displayer.handler = self
     end
 
     def click_button(name)
@@ -22,10 +23,11 @@ module NeedNotToSpeed
     end
 
     def start_game
+      @daddy.start_game
     end
 
     def exit
-      @displayer.close
+      @daddy.exit
     end
   end
 end
