@@ -13,6 +13,8 @@ module NeedNotToSpeed
       @map = Map.new
       @active_objects = []
       @car = PlayerCar.new
+      displayer.init_game(@active_objects, [@car])
+      @displayer.handler = self
     end
 
     def click_button(btn)
