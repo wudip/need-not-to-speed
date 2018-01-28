@@ -1,5 +1,6 @@
 require 'view/view_layer'
 require 'model/controls/controls_model'
+require 'model/game/game'
 
 module NeedNotToSpeed
   # Class representing the whole game.
