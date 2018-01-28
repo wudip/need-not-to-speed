@@ -1,5 +1,7 @@
+require 'view/painters/painter'
+
 module NeedNotToSpeed
-  class CarImage
+  class CarImage < Painter
     class << self
       attr_reader :image_dir, :image_extension, :image_wheels_l_postfix, :image_wheels_r_postfix
       attr_accessor :image_light
@@ -9,7 +11,9 @@ module NeedNotToSpeed
     @image_wheels_l_postfix = '_wheels_l.png'
     @image_wheels_r_postfix = '_wheels_r.png'
     @image_light = nil
-    def initialize(car)
+
+    def initialize(world, car)
+      super(world)
       @car = car
       init_images
     end
@@ -41,13 +45,13 @@ module NeedNotToSpeed
       rotation = @car.rotation * 180 / Math::PI
       draw_wheels(rotation)
       draw_lights(rotation)
-      @image.draw_rot(@car.x, @car.y, 3, rotation, @car.wheelbase_center)
+      draw_rot(@image, @car.x, @car.y, 3, rotation, @car.wheelbase_center)
     end
 
     def draw_lights(rotation)
       @car.active_lights.each do |light|
         light_rotation = light.rotation * 180 / Math::PI
-        self.class.image_light.draw_rot(light.x, light.y, 3, light_rotation, 0)
+        draw_rot(self.class.image_light, light.x, light.y, 3, light_rotation, 0.01)
       end
     end
 
@@ -57,7 +61,7 @@ module NeedNotToSpeed
     end
 
     def draw_parts(image, rotation)
-      image.draw_rot(@car.x, @car.y, 2, rotation, @car.wheelbase_center)
+      draw_rot(image, @car.x, @car.y, 2, rotation, @car.wheelbase_center)
     end
   end
 end

@@ -13,19 +13,17 @@ module NeedNotToSpeed
       @map = Map.new
       @active_objects = []
       @car = PlayerCar.new
-      displayer.init_game(@active_objects, [@car])
+      displayer.init_game(self, @active_objects, [@car])
       @displayer.handler = self
     end
 
     def update
-      @active_objects.each do |object|
-        object.update
-      end
+      @active_objects.each(&:update)
+      @map.check_collision(@car)
       @car.update
     end
 
-    def click_button(btn)
-    end
+    def click_button(button) end
 
     def handle_key_down(key)
       case key
@@ -58,5 +56,14 @@ module NeedNotToSpeed
         @car.state.lights_on = !@car.state.lights_on
       end
     end
+
+    def translation_x
+      @car.x
+    end
+
+    def translation_y
+      @car.y
+    end
+
   end
 end

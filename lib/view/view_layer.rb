@@ -24,7 +24,7 @@ module NeedNotToSpeed
       @window = GameWindow.new(self, width, height)
       @menu = Menu.new(@window)
       @loader = LoaderScreen.new(@window)
-      @game = GameView.new([], [])
+      @game = GameView.new(nil, [], [])
       @mode = :menu
       @handler = nil
     end
@@ -53,8 +53,8 @@ module NeedNotToSpeed
       @loader.progress(progress, progress_goal)
     end
 
-    def init_game(objects, cars)
-      @game = GameView.new(objects, cars)
+    def init_game(game, objects, cars)
+      @game = GameView.new(game, objects, cars)
       @mode = :game
     end
 
