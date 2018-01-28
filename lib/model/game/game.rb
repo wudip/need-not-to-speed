@@ -17,6 +17,13 @@ module NeedNotToSpeed
       @displayer.handler = self
     end
 
+    def update
+      @active_objects.each do |object|
+        object.update
+      end
+      @car.update
+    end
+
     def click_button(btn)
     end
 
