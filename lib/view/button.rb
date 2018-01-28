@@ -22,8 +22,7 @@ module NeedNotToSpeed
     def compute_message
       font_size = 30
       font_name = Gosu.default_font_name
-      options = { font_name: font_name, line_height: font_size }
-      @message = Gosu::Image.from_text(@title, font_size, options)
+      @message = Gosu::Image.from_text(@title, font_size)
       @font_x = @x + (@width - @message.width) / 2
       @font_y = @y + (@height - @message.height) / 2
     end
