@@ -1,10 +1,10 @@
-require 'model/game/car'
+require 'model/game/cars/t603'
 
 module NeedNotToSpeed
   # Class representing player's car
-  class PlayerCar < Car
+  class PlayerCar < T603
     def initialize
-      super(0, 0, nil, 50, 30)
+      super(80, 100)
     end
   end
 end

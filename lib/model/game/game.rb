@@ -54,6 +54,8 @@ module NeedNotToSpeed
         @car.state.slowing_down = false
       when Gosu::KbSpace
         @car.state.braking = false
+      when Gosu::KbL
+        @car.state.lights_on = !@car.state.lights_on
       end
     end
   end
