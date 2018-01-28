@@ -1,3 +1,4 @@
+require 'view/game_view'
 require 'view/game_window'
 require 'view/loader_screen'
 require 'view/menu'
@@ -23,6 +24,7 @@ module NeedNotToSpeed
       @window = GameWindow.new(self, width, height)
       @menu = Menu.new(@window)
       @loader = LoaderScreen.new(@window)
+      @game = GameView.new([], [])
       @mode = :menu
       @handler = nil
     end
@@ -31,6 +33,7 @@ module NeedNotToSpeed
     def things_to_draw
       return [@menu.things_to_draw].flatten if @mode == :menu
       return [@loader.things_to_draw].flatten if @mode == :loader
+      return [@game.things_to_draw].flatten if @mode == :game
     end
 
     def show
@@ -48,6 +51,11 @@ module NeedNotToSpeed
     def display_loader(progress, progress_goal)
       @mode = :loader
       @loader.progress(progress, progress_goal)
+    end
+
+    def init_game(objects, cars)
+      @game = GameView.new(objects, cars)
+      @mode = :game
     end
 
     def handle_key_up(key)
