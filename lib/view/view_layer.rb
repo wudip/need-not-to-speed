@@ -58,8 +58,14 @@ module NeedNotToSpeed
       @mode = :game
     end
 
+    def handle_key_down(key)
+      return if @handler.nil? || @mode != :game
+      @handler.handle_key_down(key)
+    end
+
     def handle_key_up(key)
-      return if @handler.nil?
+      return if @handler.nil? || @mode != :game
+      @handler.handle_key_up(key)
     end
 
     def handle_mouse_down(key, x, y)

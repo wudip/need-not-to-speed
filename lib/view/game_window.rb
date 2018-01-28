@@ -23,6 +23,12 @@ module NeedNotToSpeed
       true
     end
 
+    def button_down(key)
+      if ![Gosu::MS_LEFT, Gosu::MS_RIGHT].include? key
+        @handler.handle_key_down(key)
+      end
+    end
+
     def button_up(key)
       if [Gosu::MS_LEFT, Gosu::MS_RIGHT].include? key
         return @handler.handle_mouse_down(key, mouse_x, mouse_y)
