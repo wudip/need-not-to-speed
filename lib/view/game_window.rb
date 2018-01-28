@@ -33,5 +33,9 @@ module NeedNotToSpeed
     def display_button(button)
       button
     end
+
+    def update
+      @handler.update
+    end
   end
 end

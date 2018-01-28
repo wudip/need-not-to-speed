@@ -73,5 +73,9 @@ module NeedNotToSpeed
     def close
       @window.close
     end
+
+    def update
+      @handler.update
+    end
   end
 end

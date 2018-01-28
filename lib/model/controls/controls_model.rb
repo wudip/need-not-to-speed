@@ -33,5 +33,8 @@ module NeedNotToSpeed
     def exit
       @daddy.exit
     end
+
+    def update
+    end
   end
 end
