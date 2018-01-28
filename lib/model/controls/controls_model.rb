@@ -17,6 +17,10 @@ module NeedNotToSpeed
       @displayer.handler = self
     end
 
+    def display_loader
+      @displayer.display_loader(3, 5)
+    end
+
     def click_button(name)
       action = @buttons[name.to_sym]
       action.call

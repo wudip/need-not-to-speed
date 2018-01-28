@@ -1,4 +1,5 @@
 require 'view/game_window'
+require 'view/loader_screen'
 require 'view/menu'
 
 module NeedNotToSpeed
@@ -21,12 +22,15 @@ module NeedNotToSpeed
       height = self.class.window_height
       @window = GameWindow.new(self, width, height)
       @menu = Menu.new(@window)
+      @loader = LoaderScreen.new(@window)
+      @mode = :menu
       @handler = nil
     end
 
     # @return [List] list of all things that should be drawed in the windos
     def things_to_draw
-      [@menu.things_to_draw].flatten
+      return [@menu.things_to_draw].flatten if @mode == :menu
+      return [@loader.things_to_draw].flatten if @mode == :loader
     end
 
     def show
@@ -37,7 +41,13 @@ module NeedNotToSpeed
     # a hash containing this parameters: title (what's written on the button)
     # and name (some short identifier of the button)
     def display_menu(buttons)
+      @mode = :menu
       @menu.buttons = buttons
+    end
+
+    def display_loader(progress, progress_goal)
+      @mode = :loader
+      @loader.progress(progress, progress_goal)
     end
 
     def handle_key_up(key)
