@@ -81,7 +81,15 @@ module NeedNotToSpeed
     end
 
     def update
-      @handler.update
+      @handler.update unless @handler.nil?
+    end
+
+    def display_collision(collision_spot)
+      @game.display_collision(collision_spot)
+    end
+
+    def display_game_end
+      @game.display_end
     end
   end
 end

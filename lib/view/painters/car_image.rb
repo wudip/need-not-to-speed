@@ -46,6 +46,10 @@ module NeedNotToSpeed
       draw_wheels(rotation)
       draw_lights(rotation)
       draw_rot(@image, @car.x, @car.y, 3, rotation, @car.wheelbase_center)
+
+      @car.get_pixels.each do |pixel|
+        draw_point(pixel[:x], pixel[:y], 4)
+      end
     end
 
     def draw_lights(rotation)

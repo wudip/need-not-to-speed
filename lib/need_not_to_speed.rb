@@ -13,11 +13,11 @@ module NeedNotToSpeed
 
     def start_game
       @controls_model.display_loader
-      @game = Game.new(@view_layer)
+      @game = Game.new(@view_layer, self)
     end
 
     def quit_game
-      @controls_model.display_menu
+      @controls_model.quit_game
     end
 
     def exit

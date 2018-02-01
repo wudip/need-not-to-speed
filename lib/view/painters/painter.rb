@@ -15,5 +15,11 @@ module NeedNotToSpeed
       y += @world.translation_y
       image.draw_rot(x, y, layer, rotation, center_x)
     end
+
+    def draw_point(x, y, layer)
+      x += @world.translation_x
+      y += @world.translation_y
+      Gosu.draw_rect(x, y, 2, 2, Gosu::Color::WHITE, layer)
+    end
   end
 end

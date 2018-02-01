@@ -5,6 +5,7 @@ require 'model/game/cars/rotating_front_light'
 module NeedNotToSpeed
   # A car, either player's car or AI car
   class T603 < Car
+    @boundaries = [[-75, 29], [75, 29], [-75, -29], [75, -29]]
     def initialize(x, y)
       super(x, y)
       @width = 150

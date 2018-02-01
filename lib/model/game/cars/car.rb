@@ -1,11 +1,20 @@
 require 'model/game/cars/car_state'
+require 'model/game/crashable'
 
 module NeedNotToSpeed
   # A car, either player's car or AI car
   class Car
+    class << self
+      def boundaries
+        [[0, 0]]
+      end
+    end
     attr_reader :x, :y, :width, :height, :rotation, :img_path, :state,
                 :wheelbase_center, :wheel_rotation, :lights
+
     def initialize(x, y)
+      puts 'Ruby sucks'
+      puts Car.boundaries
       @x = x.to_f
       @y = y.to_f
       @width = 150
@@ -24,13 +33,18 @@ module NeedNotToSpeed
       @velocity_x = 0
       @velocity_y = 0
       @state = CarState.new
+      puts 'boundaries'
+      puts self.class.boundaries
+      @core = Crashable.new(self.class.boundaries)
       compute_wheelbase
       @lights = []
     end
 
     def compute_wheelbase
       @wheelbase = @wheels_rear - @wheels_front
-      @wheelbase_center = 1 - (@wheels_front + @wheels_rear / 2).to_f / @width
+      @wheelbase_center = 1 - ((@wheels_front + @wheels_rear) / 2).to_f / @width
+      x_center = (width - (@wheels_front + @wheels_rear)) / 2
+      @core.centerize_points(x_center, 0)
     end
 
     def speed_up
@@ -112,5 +126,10 @@ module NeedNotToSpeed
     def active_lights
       state.lights_on ? @lights : []
     end
+
+    def get_pixels
+      @core.get_pixels(@x, @y, @rotation)
+    end
+
   end
 end

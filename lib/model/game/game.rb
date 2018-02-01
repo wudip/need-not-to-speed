@@ -8,8 +8,9 @@ module NeedNotToSpeed
   class Game
     # @param [ViewLayer] displayer object that displays all game data on
     # the screen
-    def initialize(displayer)
+    def initialize(displayer, event_handler)
       @displayer = displayer
+      @event_handler = event_handler
       @map = Map.new
       @active_objects = []
       @car = PlayerCar.new
@@ -19,8 +20,14 @@ module NeedNotToSpeed
 
     def update
       @active_objects.each(&:update)
-      @map.check_collision(@car)
       @car.update
+      collision_spot = @map.check_collision(@car)
+      crash(collision_spot) unless collision_spot.nil?
+    end
+
+    def crash(collision_spot)
+      @displayer.display_collision(collision_spot)
+      @event_handler.quit_game
     end
 
     def click_button(button) end
@@ -64,6 +71,5 @@ module NeedNotToSpeed
     def translation_y
       @car.y
     end
-
   end
 end

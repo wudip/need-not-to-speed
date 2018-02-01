@@ -1,5 +1,7 @@
 require 'view/painters/car_image'
 require 'view/painters/background'
+require 'view/crash_circle'
+require 'view/game_end_message'
 
 module NeedNotToSpeed
   class GameView
@@ -32,6 +34,17 @@ module NeedNotToSpeed
 
     def translation_y
       @offset_y - @game.translation_y
+    end
+
+    def display_collision(collision_spot)
+      x = translation_x + collision_spot[:x]
+      y = translation_y + collision_spot[:y]
+      @shadows.push(CrashCircle.new(x, y))
+      puts "offset: #{@offset_x} #{@offset_y}"
+    end
+
+    def display_end
+      @shadows.push(GameEndMessage.new(@offset_x, @offset_y))
     end
   end
 end
