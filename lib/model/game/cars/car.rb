@@ -17,7 +17,6 @@ module NeedNotToSpeed
       set_position(pos_x, pos_y)
       set_default_values
       @state = CarState.new
-      puts self.class.boundaries
       @core = Crashable.new(self.class.boundaries)
       @wheels = Wheels.new
       compute_wheelbase

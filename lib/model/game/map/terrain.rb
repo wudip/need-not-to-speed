@@ -13,7 +13,6 @@ module NeedNotToSpeed
     end
     def initialize(level)
       file_path = format(self.class.terrain_file_path, level: level)
-      puts file_path
       @file = TerrainFile.new(file_path)
     end
 

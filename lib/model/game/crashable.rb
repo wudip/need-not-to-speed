@@ -15,7 +15,6 @@ module NeedNotToSpeed
       points.each do |point|
         @points.push(x: point[0], y: point[1])
       end
-      puts @points
     end
 
     def compute_center

@@ -8,7 +8,6 @@ module NeedNotToSpeed
     def initialize
       @width = 1000
       @height = 750
-      puts 'init terrain'
       @terrain = Terrain.new(0)
       traffic_light = TrafficLight.new(1200, 1500, 100, 0)
       @objects = [traffic_light]
