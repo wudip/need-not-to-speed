@@ -12,7 +12,9 @@ module NeedNotToSpeed
 
     def display_menu
       @mode = :menu
-      @buttons = { start: proc { start_game }, end: proc { exit } }
+      @buttons = { start: proc { start_game },
+                   end: proc { exit },
+                   restart: proc { start_game } }
       @viewer.display_menu([{ title: 'Start', name: 'start' },
                             { title: 'End', name: 'end' }])
       @viewer.handler = self

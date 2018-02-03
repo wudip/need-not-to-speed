@@ -65,7 +65,9 @@ module NeedNotToSpeed
 
     def handle_mouse_down(_key, x, y)
       return if @handler.nil?
-      btn = @menu.find_button(x, y)
+      btn = nil
+      btn = @menu.find_button(x, y) if @mode == :menu
+      btn = @game.find_button(x, y) if @mode == :game
       return @handler.click_button(btn) unless btn.nil?
       # return @handler.click_key_right if key == Gosu::MS_RIGHT
       # @handler.click_key_left

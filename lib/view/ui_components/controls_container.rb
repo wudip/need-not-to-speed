@@ -29,5 +29,16 @@ module NeedNotToSpeed
       y2 = y1 + @height
       x >= x1 && x <= x2 && y >= y1 && y <= y2
     end
+
+    def find_button(x, y)
+      @children.each do |child|
+        is_btn = child.respond_to?(:inside_button?)
+        return child.name if is_btn && child.inside_button?(x, y)
+        is_container = child.respond_to?(:find_button)
+        found_button = is_container ? child.find_button(x, y) : nil
+        return found_button unless found_button.nil?
+      end
+      nil
+    end
   end
 end

@@ -14,6 +14,7 @@ module NeedNotToSpeed
       @offset_x = 1280 / 2
       @offset_y = 846 / 2
       @background = Background.new(self)
+      @game_end_msg = nil
     end
 
     def fill_shadows(objects, cars)
@@ -51,8 +52,14 @@ module NeedNotToSpeed
       @shadows.push(CrashCircle.new(x, y))
     end
 
+    def find_button(x, y)
+      return @game_end_msg.find_button(x, y) unless @game_end_msg.nil?
+      nil
+    end
+
     def display_end
-      @shadows.push(GameEndMessage.new(@offset_x, @offset_y))
+      @game_end_msg = GameEndMessage.new(@offset_x, @offset_y)
+      @shadows.push(@game_end_msg)
     end
   end
 end
