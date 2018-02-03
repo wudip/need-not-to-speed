@@ -5,7 +5,7 @@ module NeedNotToSpeed
                   :braking, :lights_on
     def initialize
       @turning_left = false
-      @turining_right = false
+      @turning_right = false
       @speeding_up = false
       @slowing_down = false
       @braking = false

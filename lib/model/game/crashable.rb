@@ -1,15 +1,16 @@
 module NeedNotToSpeed
   # A thing that could collide to another things
+  # noinspection ALL
   class Crashable
     def initialize(points)
-      set_points(points)
+      self.points = points
       @radius = 0
       center_x, center_y = compute_center
-      centerize_points(center_x, center_y)
+      center_points(center_x, center_y)
       compute_radius
     end
 
-    def set_points(points)
+    def points=(points)
       @points = []
       points.each do |point|
         @points.push(x: point[0], y: point[1])
@@ -33,7 +34,7 @@ module NeedNotToSpeed
       (min + max) / 2
     end
 
-    def centerize_points(x_center, y_center)
+    def center_points(x_center, y_center)
       @points.each do |point|
         point[:x] = point[:x] - x_center
         point[:y] = point[:y] - y_center

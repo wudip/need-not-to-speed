@@ -1,21 +1,16 @@
 require 'view/game_view'
 require 'view/game_window'
-require 'view/loader_screen'
-require 'view/menu'
+require 'view/ui_components/loader_screen'
+require 'view/ui_components/menu'
 
 module NeedNotToSpeed
   # Encapsulates all actions related to displaying things on the screen.
   # No another class in view layer except for this one should be used
   # by another layer.
   class ViewLayer
-    @button_width = 300
-    @button_height = 50
-    @button_padding = 20
     @window_width = 1280
     @window_height = 846
-    class << self
-      attr_reader :menu_button_width, :menu_button_height, :window_width, :window_height, :menu_button_padding
-    end
+    class << self; attr_reader :window_width, :window_height end
     attr_writer :handler
 
     def initialize
@@ -68,7 +63,7 @@ module NeedNotToSpeed
       @handler.handle_key_up(key)
     end
 
-    def handle_mouse_down(key, x, y)
+    def handle_mouse_down(_key, x, y)
       return if @handler.nil?
       btn = @menu.find_button(x, y)
       return @handler.click_button(btn) unless btn.nil?

@@ -3,11 +3,13 @@ require 'model/game/map/terrain'
 module NeedNotToSpeed
   # Class containing whole world including static and dynamic objects
   class Map
+    attr_reader :objects
     def initialize
       @width = 1000
       @height = 750
       puts 'init terrain'
       @terrain = Terrain.new(0)
+      @objects = []
     end
 
     def check_collision(object)

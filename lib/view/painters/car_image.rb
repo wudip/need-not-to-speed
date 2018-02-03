@@ -41,11 +41,11 @@ module NeedNotToSpeed
       @image_wheels_r = Gosu::Image.new(wheels_r_path)
     end
 
-    def draw(window)
+    def draw
       rotation = @car.rotation * 180 / Math::PI
       draw_wheels(rotation)
       draw_lights(rotation)
-      draw_rot(@image, @car.x, @car.y, 3, rotation, @car.wheelbase_center)
+      draw_rot(@image, @car.pos_x, @car.pos_y, 3, rotation, @car.wheelbase_center)
 
       @car.get_pixels.each do |pixel|
         draw_point(pixel[:x], pixel[:y], 4)
@@ -55,7 +55,7 @@ module NeedNotToSpeed
     def draw_lights(rotation)
       @car.active_lights.each do |light|
         light_rotation = light.rotation * 180 / Math::PI
-        draw_rot(self.class.image_light, light.x, light.y, 3, light_rotation, 0.01)
+        draw_rot(self.class.image_light, light.pos_x, light.pos_y, 3, light_rotation, 0.01)
       end
     end
 
@@ -65,7 +65,7 @@ module NeedNotToSpeed
     end
 
     def draw_parts(image, rotation)
-      draw_rot(image, @car.x, @car.y, 2, rotation, @car.wheelbase_center)
+      draw_rot(image, @car.pos_x, @car.pos_y, 2, rotation, @car.wheelbase_center)
     end
   end
 end

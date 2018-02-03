@@ -4,8 +4,8 @@ module NeedNotToSpeed
   # so, this class just decides what to do and calls appropriate method to
   # display the controls)
   class ControlsModel
-    def initialize(displayer, daddy)
-      @displayer = displayer
+    def initialize(viewer, daddy)
+      @viewer = viewer
       @daddy = daddy
       display_menu
     end
@@ -13,14 +13,14 @@ module NeedNotToSpeed
     def display_menu
       @mode = :menu
       @buttons = { start: proc { start_game }, end: proc { exit } }
-      @displayer.display_menu([{ title: 'Start', name: 'start' },
-                               { title: 'End', name: 'end' }])
-      @displayer.handler = self
+      @viewer.display_menu([{ title: 'Start', name: 'start' },
+                            { title: 'End', name: 'end' }])
+      @viewer.handler = self
     end
 
     def display_loader
       @mode = :loader
-      @displayer.display_loader(3, 5)
+      @viewer.display_loader(3, 5)
     end
 
     def click_button(name)
@@ -34,7 +34,7 @@ module NeedNotToSpeed
 
     def quit_game
       @mode = :game_end
-      @displayer.handler = self
+      @viewer.handler = self
       display_game_end
     end
 
@@ -47,13 +47,13 @@ module NeedNotToSpeed
     end
 
     def display_game_end
-      @displayer.display_game_end
+      @viewer.display_game_end
     end
 
-    def handle_key_down(key) end
+    def handle_key_down(_key) end
 
-    def handle_key_up(key) end
+    def handle_key_up(_key) end
 
-    def handle_mouse_down(key, x, y) end
+    def handle_mouse_down(_key, _x, _y) end
   end
 end

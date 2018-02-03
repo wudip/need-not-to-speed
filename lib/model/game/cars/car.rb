@@ -1,4 +1,5 @@
 require 'model/game/cars/car_state'
+require 'model/game/cars/wheels'
 require 'model/game/crashable'
 
 module NeedNotToSpeed
@@ -9,14 +10,26 @@ module NeedNotToSpeed
         [[0, 0]]
       end
     end
-    attr_reader :x, :y, :width, :height, :rotation, :img_path, :state,
-                :wheelbase_center, :wheel_rotation, :lights
+    attr_reader :pos_x, :pos_y, :width, :height, :rotation, :img_path, :state,
+                :wheelbase_center, :lights
 
-    def initialize(x, y)
-      puts 'Ruby sucks'
-      puts Car.boundaries
-      @x = x.to_f
-      @y = y.to_f
+    def initialize(pos_x, pos_y)
+      set_position(pos_x, pos_y)
+      set_default_values
+      @state = CarState.new
+      puts self.class.boundaries
+      @core = Crashable.new(self.class.boundaries)
+      @wheels = Wheels.new
+      compute_wheelbase
+      @lights = []
+    end
+
+    def set_position(pos_x, pos_y)
+      @pos_x = pos_x.to_f
+      @pos_y = pos_y.to_f
+    end
+
+    def set_default_values
       @width = 150
       @height = 50
       @img_path = nil
@@ -24,27 +37,19 @@ module NeedNotToSpeed
       @wheels_rear = 122
       @acceleration = 0.05
       @rotation = -Math::PI / 2
-      @wheel_rotation = 0
-      @max_wheel_rotation = 1.07
       @speed_max = 0.05
       @slowing_coefficient = 0.5 * @acceleration
       @speed_reverse_min = -5
       @speed = 0
       @velocity_x = 0
       @velocity_y = 0
-      @state = CarState.new
-      puts 'boundaries'
-      puts self.class.boundaries
-      @core = Crashable.new(self.class.boundaries)
-      compute_wheelbase
-      @lights = []
     end
 
     def compute_wheelbase
       @wheelbase = @wheels_rear - @wheels_front
       @wheelbase_center = 1 - ((@wheels_front + @wheels_rear) / 2).to_f / @width
       x_center = (width - (@wheels_front + @wheels_rear)) / 2
-      @core.centerize_points(x_center, 0)
+      @core.center_points(x_center, 0)
     end
 
     def speed_up
@@ -80,13 +85,13 @@ module NeedNotToSpeed
     end
 
     def manage_rotation
-      @wheel_rotation = 0
+      @wheels.straighten
       turn_left if @state.turning_left && !@state.turning_right
       turn_right if @state.turning_right && !@state.turning_left
     end
 
     def turn_left
-      @wheel_rotation = -@max_wheel_rotation
+      @wheels.turn_left
       ta = turning_angle
       @rotation -= ta if @speed > 0
       @rotation += ta if @speed < 0
@@ -94,7 +99,7 @@ module NeedNotToSpeed
     end
 
     def turn_right
-      @wheel_rotation = @max_wheel_rotation
+      @wheels.turn_right
       ta = turning_angle
       @rotation += ta if @speed > 0
       @rotation -= ta if @speed < 0
@@ -111,7 +116,7 @@ module NeedNotToSpeed
     end
 
     def turning_angle_delta(delta)
-      cos_wr = Math.cos(Math::PI - @wheel_rotation)
+      cos_wr = Math.cos(wheels_angle_concave)
       squares = @wheelbase * @wheelbase + delta * delta
       c2 = squares - 2 * @wheelbase * delta * cos_wr
       c = Math.sqrt(c2)
@@ -119,8 +124,8 @@ module NeedNotToSpeed
     end
 
     def update_position
-      @x += @speed * Math.cos(@rotation)
-      @y += @speed * Math.sin(@rotation)
+      @pos_x += @speed * Math.cos(@rotation)
+      @pos_y += @speed * Math.sin(@rotation)
     end
 
     def active_lights
@@ -128,8 +133,13 @@ module NeedNotToSpeed
     end
 
     def get_pixels
-      @core.get_pixels(@x, @y, @rotation)
+      @core.get_pixels(@pos_x, @pos_y, @rotation)
     end
 
+    private
+
+    def wheels_angle_concave
+      Math::PI - @wheels.rotation
+    end
   end
 end

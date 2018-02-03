@@ -8,7 +8,7 @@ module NeedNotToSpeed
       @image = Gosu::Image.new(path)
     end
 
-    def draw(window)
+    def draw
       draw_img(@image, 0, 0, 0)
     end
   end

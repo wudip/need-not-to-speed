@@ -14,9 +14,7 @@ module NeedNotToSpeed
 
     def draw
       Gosu::draw_rect(0, 0, @width, @height, Gosu::Color::RED)
-      @handler.things_to_draw.each do |elem|
-        elem.draw(self)
-      end
+      @handler.things_to_draw.each(&:draw)
     end
 
     def needs_cursor?

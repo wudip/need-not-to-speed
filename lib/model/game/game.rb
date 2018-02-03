@@ -6,16 +6,16 @@ module NeedNotToSpeed
   # position, stores score and so on. It also sends data to display to the
   # view layer.
   class Game
-    # @param [ViewLayer] displayer object that displays all game data on
+    # @param [ViewLayer] viewer object that displays all game data on
     # the screen
-    def initialize(displayer, event_handler)
-      @displayer = displayer
+    def initialize(viewer, event_handler)
+      @viewer = viewer
       @event_handler = event_handler
       @map = Map.new
       @active_objects = []
       @car = PlayerCar.new
-      displayer.init_game(self, @active_objects, [@car])
-      @displayer.handler = self
+      viewer.init_game(self, @map.objects, [@car])
+      @viewer.handler = self
     end
 
     def update
@@ -26,11 +26,11 @@ module NeedNotToSpeed
     end
 
     def crash(collision_spot)
-      @displayer.display_collision(collision_spot)
+      @viewer.display_collision(collision_spot)
       @event_handler.quit_game
     end
 
-    def click_button(button) end
+    def click_button(_button) end
 
     def handle_key_down(key)
       case key
@@ -65,11 +65,11 @@ module NeedNotToSpeed
     end
 
     def translation_x
-      @car.x
+      @car.pos_x
     end
 
     def translation_y
-      @car.y
+      @car.pos_y
     end
   end
 end

@@ -8,12 +8,12 @@ module NeedNotToSpeed
     end
 
     def x
-      base = @car.x + @offset_x * Math.cos(@car.rotation)
+      base = @car.pos_x + @offset_x * Math.cos(@car.rotation)
       base + @offset_y * Math.sin(@car.rotation)
     end
 
     def y
-      base = @car.y + @offset_x * Math.sin(@car.rotation)
+      base = @car.pos_y + @offset_x * Math.sin(@car.rotation)
       base - @offset_y * Math.cos(@car.rotation)
     end
 

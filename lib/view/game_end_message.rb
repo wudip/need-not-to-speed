@@ -1,13 +1,17 @@
-require 'view/button'
+require 'view/ui_components/buttons/text_button'
 
 module NeedNotToSpeed
+  # Shows message about end of the game
   class GameEndMessage
     def initialize(center_x, center_y)
-      @button = Button.new('Game end', 'whatever', center_x, center_y, 200, 50)
+      title = 'Game end'
+      name = 'whatever'
+      size = Dimensions.new(200, 50)
+      @button = TextButton.new(title, name, Point.new(center_x, center_y), size)
     end
 
-    def draw(window)
-      @button.draw(window)
+    def draw
+      @button.draw
     end
   end
 end
