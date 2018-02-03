@@ -11,3 +11,4 @@
 .rspec_status
 Gemfile.lock
 
+/need_not_to_speed-[0-9.]*.gem
