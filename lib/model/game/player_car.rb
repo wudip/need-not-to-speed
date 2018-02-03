@@ -4,8 +4,8 @@ require 'model/game/cars/saxo'
 module NeedNotToSpeed
   # Class representing player's car
   class PlayerCar < Saxo
-    def initialize
-      super(1164, 1092)
+    def initialize(x, y)
+      super(x, y)
     end
   end
 end

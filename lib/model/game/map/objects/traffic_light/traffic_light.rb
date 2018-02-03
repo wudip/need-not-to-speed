@@ -54,7 +54,7 @@ module NeedNotToSpeed
 
     def init_line_vertical(length)
       x = @pos_x
-      sign = @rotation == 90 ? 1 : -1
+      sign = @rotation == 270 ? 1 : -1
       length.times do
         @line.push(x: x, y: @pos_y)
         x += sign

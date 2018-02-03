@@ -1,0 +1,42 @@
+require 'json'
+
+require 'model/game/map'
+require 'model/game/level/object_parser'
+
+module NeedNotToSpeed
+  # Contains all items (including map) related to a game level
+  class Level
+    LEVEL_DIR = 'resources/levels/'.freeze
+    FILE_EXTENSION = '.json'.freeze
+    class << self
+      def parse_level_file(file_name)
+        path = LEVEL_DIR + file_name + FILE_EXTENSION
+        file = File.read(path)
+        JSON.parse(file)
+      end
+    end
+    attr_reader :map
+    def initialize(file_name)
+      @hash = self.class.parse_level_file(file_name)
+      load_map(file_name)
+    end
+
+    # @return [Integer, Integer] starting position of the car
+    def start_position
+      position = @hash['start_position']
+      x = position['x'].to_i
+      y = position['y'].to_i
+      [x, y]
+    end
+
+    private
+
+    def load_map(level_name)
+      @map = Map.new(level_name)
+      @hash['objects'].each do |object_hash|
+        object = ObjectParser.parse(object_hash)
+        @map.add(object)
+      end
+    end
+  end
+end

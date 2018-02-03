@@ -4,13 +4,18 @@ require 'model/game/map/objects/traffic_light/traffic_light'
 module NeedNotToSpeed
   # Class containing whole world including static and dynamic objects
   class Map
+    attr_writer :final_area
     attr_reader :objects
-    def initialize
+    def initialize(level_name)
       @width = 1000
       @height = 750
-      @terrain = Terrain.new(0)
-      traffic_light = TrafficLight.new(1200, 1500, 100, 0)
-      @objects = [traffic_light]
+      @terrain = Terrain.new(level_name)
+      @objects = []
+      @final_area = nil
+    end
+
+    def add(object)
+      @objects.push(object)
     end
 
     def active_objects

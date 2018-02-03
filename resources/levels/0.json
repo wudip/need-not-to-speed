@@ -1,0 +1,28 @@
+{
+  "start_position" : {
+    "x" : 1164,
+    "y" : 1092
+  },
+  "objects" : [
+    {
+      "type" : "traffic_lights",
+      "x" : 1200,
+      "y" : 1500,
+      "line_length" : 100,
+      "rotation" : 270
+    },
+    {
+      "type" : "traffic_lights",
+      "x" : 1200,
+      "y" : 2500,
+      "line_length" : 172,
+      "rotation" : 0
+    }
+  ],
+  "final_area" : {
+    "x" : 1300,
+    "y" : 1500,
+    "width" : 50,
+    "height" : 100
+  }
+}

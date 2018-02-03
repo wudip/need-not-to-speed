@@ -1,5 +1,6 @@
 require 'model/game/map'
 require 'model/game/player_car'
+require 'model/game/level/level'
 
 module NeedNotToSpeed
   # Class controlling whole game. It computes every object's position, it's
@@ -11,9 +12,11 @@ module NeedNotToSpeed
     def initialize(viewer, event_handler)
       @viewer = viewer
       @event_handler = event_handler
-      @map = Map.new
+      level = Level.new(0.to_s)
+      x, y = level.start_position
+      @map = level.map
       @active_objects = @map.active_objects
-      @car = PlayerCar.new
+      @car = PlayerCar.new(x, y)
       viewer.init_game(self, @map.objects, [@car])
       @viewer.handler = self
     end
