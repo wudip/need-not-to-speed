@@ -17,7 +17,14 @@ module NeedNotToSpeed
     end
 
     def fill_shadows(objects, cars)
+      fill_shadow_objects(objects)
       fill_shadow_cars(cars)
+    end
+
+    def fill_shadow_objects(objects)
+      objects.each do |object|
+        @shadows.push(ObjectImage.new(self, object))
+        end
     end
 
     def fill_shadow_cars(cars)

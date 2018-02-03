@@ -12,7 +12,7 @@ module NeedNotToSpeed
       @viewer = viewer
       @event_handler = event_handler
       @map = Map.new
-      @active_objects = []
+      @active_objects = @map.active_objects
       @car = PlayerCar.new
       viewer.init_game(self, @map.objects, [@car])
       @viewer.handler = self

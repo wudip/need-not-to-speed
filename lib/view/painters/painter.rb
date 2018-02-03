@@ -10,7 +10,7 @@ module NeedNotToSpeed
       image.draw(x, y, layer)
     end
 
-    def draw_rot(image, x, y, layer, rotation, center_x)
+    def draw_rot(image, x, y, layer, rotation, center_x = 0.5)
       x += @world.translation_x
       y += @world.translation_y
       image.draw_rot(x, y, layer, rotation, center_x)
