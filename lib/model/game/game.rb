@@ -9,10 +9,10 @@ module NeedNotToSpeed
   class Game
     # @param [ViewLayer] viewer object that displays all game data on
     # the screen
-    def initialize(viewer, event_handler)
+    def initialize(viewer, event_handler, level_number)
       @viewer = viewer
       @event_handler = event_handler
-      level = Level.new(0.to_s)
+      level = Level.new(level_number.to_s)
       x, y = level.start_position
       @map = level.map
       @active_objects = @map.active_objects
@@ -26,6 +26,11 @@ module NeedNotToSpeed
       @car.update
       collision_spot = @map.check_collision(@car)
       crash(collision_spot) unless collision_spot.nil?
+      win if @map.reached_end?(@car)
+    end
+
+    def win
+      @event_handler.win_game
     end
 
     def crash(collision_spot)

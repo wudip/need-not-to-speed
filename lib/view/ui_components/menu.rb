@@ -1,6 +1,7 @@
 require 'view/ui_components/buttons/button'
 require 'view/ui_components/point'
 require 'view/ui_components/dimensions'
+require 'view/ui_components/image_component'
 require 'view/game_window'
 
 module NeedNotToSpeed
@@ -8,6 +9,7 @@ module NeedNotToSpeed
   # No another class in view layer except for this one should be used
   # by another layer.
   class Menu
+    IMG_GAME_COMPLETED_PATH = 'msg_game_completed'
     @button_width = 300
     @button_height = 50
     @button_padding = 20
@@ -55,6 +57,11 @@ module NeedNotToSpeed
         return btn.name if btn.inside_button?(x, y)
       end
       nil
+    end
+
+    def display_game_completed_message
+      img = ImageComponent.new(IMG_GAME_COMPLETED_PATH, 20, 20)
+      @buttons.push(img)
     end
 
     private

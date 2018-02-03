@@ -64,5 +64,10 @@ module NeedNotToSpeed
       end
       nil
     end
+
+    def reached_end?(object)
+      return false if @final_area.nil?
+      @final_area.inside?(object)
+    end
   end
 end

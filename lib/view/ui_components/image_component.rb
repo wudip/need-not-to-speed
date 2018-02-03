@@ -12,7 +12,7 @@ module NeedNotToSpeed
     end
 
     def draw
-      @image.draw(@pos_x, @pos_y, 5)
+      @image.draw(@pos_x, @pos_y, 4)
     end
   end
 end

@@ -36,7 +36,14 @@ module NeedNotToSpeed
       @hash['objects'].each do |object_hash|
         object = ObjectParser.parse(object_hash)
         @map.add(object)
+        @map.final_area = final_area
       end
+    end
+
+    # Private, use Map's equivalent instead
+    def final_area
+      properties = @hash['final_area']
+      ObjectParser.parse_final_area(properties)
     end
   end
 end

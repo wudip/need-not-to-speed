@@ -22,7 +22,7 @@ module NeedNotToSpeed
 
     def draw
       super
-      @message.draw(@font_x, @font_y, 0, 1, 1, @font_color)
+      @message.draw(@font_x, @font_y, 6, 1, 1, @font_color)
     end
 
     def inside_button?(x, y)

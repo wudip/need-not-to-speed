@@ -2,6 +2,7 @@ require 'json'
 
 require 'model/game/map/terrain'
 require 'model/game/map/objects/traffic_light/traffic_light'
+require 'model/game/map/final_area'
 
 module NeedNotToSpeed
   # Translates string (hash) definitions to map objects
@@ -25,6 +26,14 @@ module NeedNotToSpeed
         rotation = properties['rotation']
         line = properties['line_length']
         TrafficLight.new(x, y, line, rotation)
+      end
+
+      def parse_final_area(properties)
+        x = properties['x']
+        y = properties['y']
+        width = properties['width']
+        height = properties['height']
+        FinalArea.new(x, y, width, height)
       end
     end
   end

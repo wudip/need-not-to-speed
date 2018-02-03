@@ -18,7 +18,7 @@ module NeedNotToSpeed
     end
 
     def draw
-      Gosu.draw_rect(@pos_x, @pos_y, @width, @height, @color)
+      Gosu.draw_rect(@pos_x, @pos_y, @width, @height, @color, 5)
     end
 
     def inside_button?(x, y)

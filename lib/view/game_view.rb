@@ -3,6 +3,7 @@ require 'view/painters/object_image'
 require 'view/painters/background'
 require 'view/crash_circle'
 require 'view/game_end_message'
+require 'view/game_won_message'
 
 module NeedNotToSpeed
   # Class for displaying the actual game
@@ -14,7 +15,7 @@ module NeedNotToSpeed
       @offset_x = 1280 / 2
       @offset_y = 846 / 2
       @background = Background.new(self)
-      @game_end_msg = nil
+      @modal_window = nil
     end
 
     def fill_shadows(objects, cars)
@@ -53,13 +54,18 @@ module NeedNotToSpeed
     end
 
     def find_button(x, y)
-      return @game_end_msg.find_button(x, y) unless @game_end_msg.nil?
+      return @modal_window.find_button(x, y) unless @modal_window.nil?
       nil
     end
 
+    def display_victory
+      @modal_window = GameWonMessage.new(@offset_x, @offset_y)
+      @shadows.push(@modal_window)
+    end
+
     def display_end
-      @game_end_msg = GameEndMessage.new(@offset_x, @offset_y)
-      @shadows.push(@game_end_msg)
+      @modal_window = GameEndMessage.new(@offset_x, @offset_y)
+      @shadows.push(@modal_window)
     end
   end
 end

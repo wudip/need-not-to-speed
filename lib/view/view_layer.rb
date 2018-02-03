@@ -85,8 +85,16 @@ module NeedNotToSpeed
       @game.display_collision(collision_spot)
     end
 
+    def display_victory
+      @game.display_victory
+    end
+
     def display_game_end
       @game.display_end
+    end
+
+    def display_game_completed_message
+      @menu.display_game_completed_message
     end
   end
 end
