@@ -24,7 +24,7 @@ module NeedNotToSpeed
 
     def display_loader
       @mode = :loader
-      @viewer.display_loader(3, 5)
+      @viewer.display_loader
     end
 
     def click_button(name)

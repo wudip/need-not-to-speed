@@ -15,7 +15,9 @@ module NeedNotToSpeed
 
     def start_game
       @controls_model.display_loader
-      @game = Game.new(@view_layer, self, @current_level)
+      Thread.new { # Because of loading screen
+        @game = Game.new(@view_layer, self, @current_level)
+      }
     end
 
     def win_game

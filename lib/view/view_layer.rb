@@ -43,9 +43,8 @@ module NeedNotToSpeed
       @menu.buttons = buttons
     end
 
-    def display_loader(progress, progress_goal)
+    def display_loader
       @mode = :loader
-      @loader.progress(progress, progress_goal)
     end
 
     def init_game(game, objects, cars)
