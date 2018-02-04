@@ -2,6 +2,7 @@ require 'json'
 
 require 'model/game/map'
 require 'model/game/level/object_parser'
+require 'model/game/map/stop_sign'
 
 module NeedNotToSpeed
   # Contains all items (including map) related to a game level
@@ -35,7 +36,8 @@ module NeedNotToSpeed
       @map = Map.new(level_name)
       @hash['objects'].each do |object_hash|
         object = ObjectParser.parse(object_hash)
-        @map.add(object)
+        @map.add(object) unless object.is_a? StopSign
+        @map.add_stop_sign(object) if object.is_a? StopSign
         @map.final_area = final_area
       end
     end

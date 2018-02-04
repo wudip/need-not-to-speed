@@ -11,7 +11,7 @@ module NeedNotToSpeed
       end
     end
     attr_reader :pos_x, :pos_y, :width, :height, :rotation, :img_path, :state,
-                :wheelbase_center, :lights
+                :wheelbase_center, :lights, :speed
 
     def initialize(pos_x, pos_y)
       set_position(pos_x, pos_y)
@@ -81,6 +81,7 @@ module NeedNotToSpeed
       speed_up if @state.speeding_up
       slow_down_a_bit unless @state.speeding_up || @state.slowing_down
       slow_down if @state.slowing_down
+      @last_stop = { x: @pos_x, y: @pos_y } if @speed.to_i.zero?
     end
 
     def manage_rotation
@@ -133,6 +134,10 @@ module NeedNotToSpeed
 
     def get_pixels
       @core.get_pixels(@pos_x, @pos_y, @rotation)
+    end
+
+    def last_stop
+      [@last_stop[:x], @last_stop[:y]]
     end
 
     private

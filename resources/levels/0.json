@@ -5,17 +5,11 @@
   },
   "objects" : [
     {
-      "type" : "traffic_lights",
-      "x" : 1200,
-      "y" : 1500,
-      "line_length" : 100,
-      "rotation" : 270
-    },
-    {
-      "type" : "traffic_lights",
-      "x" : 1200,
-      "y" : 2500,
-      "line_length" : 172,
+      "type" : "stop",
+      "start_x" : 3064,
+      "start_y" : 1664,
+      "end_x" : 3067,
+      "end_y" : 1741,
       "rotation" : 0
     }
   ],

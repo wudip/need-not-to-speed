@@ -11,11 +11,16 @@ module NeedNotToSpeed
       @height = 750
       @terrain = Terrain.new(level_name)
       @objects = []
+      @stop_signs = []
       @final_area = nil
     end
 
     def add(object)
       @objects.push(object)
+    end
+
+    def add_stop_sign(object)
+      @stop_signs.push(object)
     end
 
     def active_objects
@@ -28,7 +33,17 @@ module NeedNotToSpeed
     def check_collision(object)
       spot = check_collision_terrain(object)
       return spot unless spot.nil?
-      check_collision_all_objects(object)
+      spot = check_collision_all_objects(object)
+      return spot unless spot.nil?
+      check_collision_stop_signs(object)
+    end
+
+    def check_collision_stop_signs(object)
+      @stop_signs.each do |sign|
+        collision = sign.collision(object)
+        return collision unless collision.nil?
+      end
+      nil
     end
 
     def check_collision_terrain(object)
