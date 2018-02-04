@@ -14,7 +14,7 @@ module NeedNotToSpeed
       fill_shadows(objects, cars)
       @offset_x = 1280 / 2
       @offset_y = 846 / 2
-      @background = Background.new(self)
+      @background = Background.new(self, game.level) unless game.nil?
       @modal_window = nil
     end
 

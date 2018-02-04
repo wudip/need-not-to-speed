@@ -1,10 +1,12 @@
 require 'view/painters/painter'
 
 module NeedNotToSpeed
+  # Background od a game (surface on which car moves)
   class Background < Painter
-    def initialize(world)
+    PATH_TEMPLATE = 'lib/images/map/map_%{level}.png'.freeze
+    def initialize(world, level)
       super(world)
-      path = 'lib/images/map/map_0.png'
+      path = format(PATH_TEMPLATE, level: level)
       @image = Gosu::Image.new(path)
     end
 
