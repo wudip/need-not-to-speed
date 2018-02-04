@@ -15,9 +15,18 @@ module NeedNotToSpeed
 
     def start_game
       @controls_model.display_loader
-      Thread.new { # Because of loading screen
+      if !@game.nil? && @current_level == @game.level
+        @game.start
+      else
+        new_game
+      end
+    end
+
+    def new_game
+      Thread.new do # Because of loading screen
         @game = Game.new(@view_layer, self, @current_level)
-      }
+        @game.start
+      end
     end
 
     def win_game

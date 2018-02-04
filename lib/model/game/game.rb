@@ -9,15 +9,20 @@ module NeedNotToSpeed
   class Game
     # @param [ViewLayer] viewer object that displays all game data on
     # the screen
+    attr_reader :level
     def initialize(viewer, event_handler, level_number)
       @viewer = viewer
       @event_handler = event_handler
-      level = Level.new(level_number.to_s)
-      x, y = level.start_position
-      @map = level.map
+      @level = level_number
+      @level_object = Level.new(level_number.to_s)
+      @map = @level_object.map
       @active_objects = @map.active_objects
+    end
+
+    def start
+      x, y = @level_object.start_position
       @car = PlayerCar.new(x, y)
-      viewer.init_game(self, @map.objects, [@car])
+      @viewer.init_game(self, @map.objects, [@car])
       @viewer.handler = self
     end
 
