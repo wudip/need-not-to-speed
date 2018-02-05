@@ -1,6 +1,11 @@
 module NeedNotToSpeed
-  # Loads map details from files
+  # Fianal area where car should go to end the level
   class FinalArea
+    # Creates final area with specified parameters
+    # @param x [Integer] beginning of the final area on horizontal axis
+    # @param y [Integer] beginning of the final area on vertical axis
+    # @param width [Integer] width of the area
+    # @param height [Integer] height of the area
     def initialize(x, y, width, height)
       @x_beg = x
       @y_beg = y

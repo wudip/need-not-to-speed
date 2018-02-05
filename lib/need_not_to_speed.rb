@@ -2,8 +2,11 @@ require 'view/view_layer'
 require 'model/controls/controls_model'
 require 'model/game/game'
 
+# Need not to speed game
 module NeedNotToSpeed
-  # Class representing the whole game.
+  # Class representing the whole game and everything related to it.
+  # It also contains objects to draw game window, listen to key events,
+  # and draw menus.
   class NeedNotToSpeed
     attr_accessor :current_level
     def start

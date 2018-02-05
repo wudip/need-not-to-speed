@@ -7,9 +7,11 @@ module NeedNotToSpeed
   # position, stores score and so on. It also sends data to display to the
   # view layer.
   class Game
-    # @param [ViewLayer] viewer object that displays all game data on
-    # the screen
     attr_reader :level
+    # Creates new game
+    # @param [ViewLayer] viewer object that displays all game data on the screen
+    # @param [NeedNotToSpeed] event_handler handler object that handles events beyond the game itself (game end, score, ...)
+    # @param [Integer] level_number uqiue identifier of the level
     def initialize(viewer, event_handler, level_number)
       @viewer = viewer
       @event_handler = event_handler
