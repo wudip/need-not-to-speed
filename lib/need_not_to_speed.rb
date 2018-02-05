@@ -10,7 +10,7 @@ module NeedNotToSpeed
   class NeedNotToSpeed
     attr_accessor :current_level
     def start
-      @view_layer = ViewLayer.new
+      @view_layer = View::ViewLayer.new
       @controls_model = ControlsModel.new(@view_layer, self)
       @current_level = 0
       @view_layer.show
@@ -27,7 +27,7 @@ module NeedNotToSpeed
 
     def new_game
       Thread.new do # Because of loading screen
-        @game = Game.new(@view_layer, self, @current_level)
+        @game = Game::Game.new(@view_layer, self, @current_level)
         @game.start
       end
     end
