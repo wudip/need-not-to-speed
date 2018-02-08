@@ -2,9 +2,7 @@ require 'view/window'
 
 module NeedNotToSpeed
   module View
-    # Encapsulates all actions related to displaying things on the screen.
-    # No another class in view layer except for this one should be used
-    # by another layer.
+    # A button displayed on the screen
     class Button
       attr_accessor :color
       attr_reader :name

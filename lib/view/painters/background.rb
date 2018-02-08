@@ -2,7 +2,7 @@ require 'view/painters/painter'
 
 module NeedNotToSpeed
   module View
-    # Background od a game (surface on which car moves)
+    # Background of a game (image of surface on which car moves)
     class Background < Painter
       PATH_TEMPLATE = 'lib/images/map/map_%{level}.png'.freeze
       def initialize(world, level)

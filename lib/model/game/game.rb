@@ -26,6 +26,7 @@ module NeedNotToSpeed
         @active_objects = @map.active_objects
       end
 
+      # Starts the game from beginning
       def start
         x, y = @level_object.start_position
         init_player_car(x, y)
@@ -33,6 +34,7 @@ module NeedNotToSpeed
         @viewer.handler = self
       end
 
+      # Updates all map's objects and the player's car
       def update
         @active_objects.each(&:update)
         @car.update
@@ -41,6 +43,7 @@ module NeedNotToSpeed
         win if @map.reached_end?(@car)
       end
 
+      # Marks the game as completed and quits it
       def win
         @event_handler.win_game
       end

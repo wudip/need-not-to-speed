@@ -8,18 +8,16 @@ module NeedNotToSpeed
   module Game
     # Contains all items (including map) related to a game level
     class Level
+      # Directory containing data with data files that describe game levels
       LEVEL_DIR = 'resources/levels/'.freeze
+      # Extension of level files
       FILE_EXTENSION = '.json'.freeze
-      class << self
-        def parse_level_file(file_name)
-          path = LEVEL_DIR + file_name + FILE_EXTENSION
-          file = File.read(path)
-          JSON.parse(file)
-        end
-      end
       attr_reader :map
+      # Creates new level
+      # @param file_name [String] unique identifier of level (also name of
+      # level file without extension)
       def initialize(file_name)
-        @hash = self.class.parse_level_file(file_name)
+        @hash = parse_level_file(file_name)
         load_map(file_name)
       end
 
@@ -33,6 +31,17 @@ module NeedNotToSpeed
 
       private
 
+      # Loads JSON data from level file and stores them in hash object
+      # @param file_name [String] name of level JSON file
+      # @return [Hash] hash map with data and scructure same as level's
+      # JSON file
+      def parse_level_file(file_name)
+        path = LEVEL_DIR + file_name + FILE_EXTENSION
+        file = File.read(path)
+        JSON.parse(file)
+      end
+
+      # Loads map and places all objects there
       def load_map(level_name)
         @map = Map.new(level_name)
         @hash['objects'].each do |object_hash|

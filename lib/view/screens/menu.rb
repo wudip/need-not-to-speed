@@ -6,11 +6,9 @@ require 'view/window'
 
 module NeedNotToSpeed
   module View
-    # Encapsulates all actions related to displaying things on the screen.
-    # No another class in view layer except for this one should be used
-    # by another layer.
+    # Draws menu on the screen
     class Menu
-      IMG_GAME_COMPLETED_PATH = 'msg_game_completed'
+      IMG_GAME_COMPLETED_PATH = 'msg_game_completed'.freeze
       @button_width = 300
       @button_height = 50
       @button_padding = 20

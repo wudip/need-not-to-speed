@@ -2,13 +2,26 @@ require 'model/game/crashable'
 
 module NeedNotToSpeed
   module Game
-    # Stop sign - object in map. Player has to stop at least 100 px
-    # from it
+    # Stop sign - object in map. Player has to stop at least
+    # square root of "#{SQR_STOPPING_AREA_LENGTH}" from it.
     class StopSign
-      SQR_STOPPING_AREA_LENGTH = 10000
+      # Length of area before the stop sign where car has to stop (squared to
+      # make computation easier)
+      SQR_STOPPING_AREA_LENGTH = 10_000
+      # Length from stop sign's line where car is considered 'crossing the line'
+      # (squared to make computation easier)
       SQR_MIN_DIST_FROM_LINE = 2500
       attr_reader :pos_x, :pos_y, :rotation
-
+      # Creates new stop sign. The sign is encoded by two points and an angle.
+      # If car is crossing the line between two specified point in the
+      # direction opposite to car's movement direction and if it didn't stop
+      # in close area before the sign then it's considered as collision
+      # @param start_x [Integer] x coordinate of the first point of the line
+      # @param start_y [Integer] y coordinate of the first point of the line
+      # @param end_x [Integer] x coordinate of the second point of the line
+      # @param end_y [Integer] y coordinate of the second point of the line
+      # @param rotation [Float] facing of the sign (in radians), it should be
+      # opposite of expected car's direction
       def initialize(start_x, start_y, end_x, end_y, rotation)
         @center_x = (start_x + end_x) / 2
         @center_y = (start_y + end_y) / 2
@@ -16,10 +29,15 @@ module NeedNotToSpeed
         init_line(start_x, start_y, end_x, end_y)
       end
 
+      # Updates the stop sign (it's immutable so the method remains blank)
       def update; end
 
+      # Checks for collision with specified object
+      # @param object [Object] and object (probably car) to compute collision
+      # with
       def collision(object)
-        if near?(object) && passing_right_direction(object) && didnt_stop(object)
+        if near?(object) && passing_right_direction(object) &&
+           didnt_stop(object)
           x = object.pos_x.to_i
           y = object.pos_y.to_i
           @line.each do |point|

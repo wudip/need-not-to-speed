@@ -6,7 +6,7 @@ require 'view/ui_components/support/dimensions'
 
 module NeedNotToSpeed
   module View
-    # Shows message about end of the game
+    # Shows message about the end of the game
     class GameEndMessage
       IMG_FILE_NAME = 'game-over'.freeze
       WIDTH = 300
@@ -30,6 +30,10 @@ module NeedNotToSpeed
         @container.draw
       end
 
+      # Finds the button on specified position
+      # @param x [Integer] x coord of the point where button should be
+      # @param y [Integer] y coord of the point where button should be
+      # @return [String, nil] name of the button or nil if no button was found
       def find_button(x, y)
         @container.find_button(x, y)
       end

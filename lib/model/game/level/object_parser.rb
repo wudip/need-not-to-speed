@@ -9,9 +9,11 @@ module NeedNotToSpeed
   module Game
     # Translates string (hash) definitions to map objects
     class ObjectParser
-      LEVEL_DIR = 'resources/levels/'.freeze
-      FILE_EXTENSION = '.json'.freeze
       class << self
+        # Parses specified object properties and returns object that is
+        # encoded in the parameter
+        # @param properties [Hash] properties (eg. name or width) of some object
+        # @return [Object, nil] map object that is described in specified hash
         def parse(properties)
           case properties['type']
           when 'traffic_lights'
@@ -24,6 +26,11 @@ module NeedNotToSpeed
           end
         end
 
+        # Reads traffic light's properties and returns traffic lights with
+        # specified features
+        # @param properties [Hash] properties of the traffic lights
+        # @return [TrafficLight] new object constructed according to the
+        # properties
         def parse_traffic_lights(properties)
           x = properties['x']
           y = properties['y']
@@ -32,6 +39,10 @@ module NeedNotToSpeed
           TrafficLight.new(x, y, line, rotation)
         end
 
+        # Reads stop sign's properties and returns stop sign with specified
+        # features
+        # @param properties [Hash] properties of the stop sign
+        # @return [StopSign] new object constructed according to the properties
         def parse_stop_sign(properties)
           start_x = properties['start_x']
           start_y = properties['start_y']
@@ -41,6 +52,10 @@ module NeedNotToSpeed
           StopSign.new(start_x, start_y, end_x, end_y, rotation)
         end
 
+        # Reads final area's properties and returns final area with specified
+        # features
+        # @param properties [Hash] sizes and position of the final area
+        # @return [FinalArea] new object constructed according to the properties
         def parse_final_area(properties)
           x = properties['x']
           y = properties['y']

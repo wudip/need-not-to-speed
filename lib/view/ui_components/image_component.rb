@@ -1,7 +1,6 @@
 module NeedNotToSpeed
   module View
-    # A container that contains another objects (eg. buttons) in it. It's
-    # a rectangle that could be transparent or have some background colour.
+    # An UI component containing an image that could be displayed on the screen
     class ImageComponent
       IMG_DIR = 'lib/images/'.freeze
       FILE_EXTENSION = '.png'.freeze

@@ -2,9 +2,7 @@ require 'view/ui_components/buttons/button'
 
 module NeedNotToSpeed
   module View
-    # Encapsulates all actions related to displaying things on the screen.
-    # No another class in view layer except for this one should be used
-    # by another layer.
+    # A button with a text
     class TextButton < Button
       attr_accessor :font_color
       def initialize(title, name, position, size)

@@ -2,6 +2,7 @@ require 'view/painters/painter'
 
 module NeedNotToSpeed
   module View
+    # Image of a car
     class CarImage < Painter
       class << self
         attr_reader :image_dir, :image_extension, :image_wheels_l_postfix, :image_wheels_r_postfix

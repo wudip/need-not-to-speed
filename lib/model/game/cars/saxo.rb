@@ -4,7 +4,7 @@ require 'model/game/cars/rotating_front_light'
 
 module NeedNotToSpeed
   module Game
-    # A car, either player's car or AI car
+    # Something that should look and behave like Cintroën Saxo
     class Saxo < Car
       class << self
         def boundaries
@@ -14,6 +14,9 @@ module NeedNotToSpeed
            [116, 14], [117, 23], [117, 27]]
         end
       end
+      # Creates new Saxo car
+      # @param x [Integer] horizontal position of the car
+      # @param y [Integer] vertical position of the car
       def initialize(x, y)
         super(x, y)
         @width = 150
@@ -29,6 +32,9 @@ module NeedNotToSpeed
         initialize_lights
       end
 
+      private
+
+      # Places lights on the car
       def initialize_lights
         @lights.push(Light.new(self, 55, 14))
         @lights.push(Light.new(self, 55, -14))
