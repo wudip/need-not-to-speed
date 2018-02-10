@@ -99,8 +99,9 @@ module NeedNotToSpeed
       end
 
       def turning_angle
-        turning_angle_delta(@speed) if @speed > 0
-        -turning_angle_delta(@speed) if @speed < 0
+        return turning_angle_delta(@speed) if @speed > 0
+        return -turning_angle_delta(@speed) if @speed < 0
+        0
       end
 
       def turning_angle_delta(delta)

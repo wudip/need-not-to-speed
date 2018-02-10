@@ -71,11 +71,13 @@ module NeedNotToSpeed
       def click_button(_button) end
 
       def handle_key_down(key)
-        KEY_DOWN_ACTIONS[key].call(@car)
+        action = KEY_DOWN_ACTIONS[key]
+        action.call(@car) unless action.nil?
       end
 
       def handle_key_up(key)
-        KEY_UP_ACTIONS[key].call(@car)
+        action = KEY_UP_ACTIONS[key]
+        action.call(@car) unless action.nil?
       end
 
       def translation_x
