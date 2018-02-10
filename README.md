@@ -18,7 +18,7 @@ to install dependencies,
 
 `gem build need_not_to_speed.gemspec`
 
-to create gem and then 
+to create gem and then
 
 `gem install ./need_not_to_speed-0.1.0.gem`
 
@@ -29,6 +29,3 @@ to install the gem itself.
 Just run
 
 `need-not-to-speed`
-
-and don't be scared by the loading time (seconds, even minute) --
-the map is quite big to parse.

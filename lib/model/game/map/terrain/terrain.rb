@@ -1,4 +1,3 @@
-require 'chunky_png'
 require 'model/game/map/terrain/terrain_file'
 
 module NeedNotToSpeed
