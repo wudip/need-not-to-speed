@@ -47,7 +47,6 @@ module NeedNotToSpeed
         img_y = center_y - IMAGE_Y_OFFSET
         ImageComponent.new(IMG_FILE_NAME, center_x, img_y)
       end
-
     end
   end
 end

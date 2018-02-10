@@ -14,7 +14,7 @@ module NeedNotToSpeed
       COLOR_GRASS = 255 * 256
       # Template of path of file encoding the terrain (actual path depends on
       # level number)
-      TERRAIN_FILE_PATH = 'lib/images/map/map_%{level}_terrain.png'.freeze
+      TERRAIN_FILE_PATH = 'lib/images/map/map_%<level>s_terrain.png'.freeze
       def initialize(level)
         file_path = format(TERRAIN_FILE_PATH, level: level)
         @file = TerrainFile.new(file_path)

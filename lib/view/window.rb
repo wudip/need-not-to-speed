@@ -14,7 +14,7 @@ module NeedNotToSpeed
       end
 
       def draw
-        Gosu::draw_rect(0, 0, @width, @height, Gosu::Color::RED)
+        Gosu.draw_rect(0, 0, @width, @height, Gosu::Color::RED)
         @handler.things_to_draw.each(&:draw)
       end
 
@@ -23,16 +23,12 @@ module NeedNotToSpeed
       end
 
       def button_down(key)
-        if ![Gosu::MS_LEFT, Gosu::MS_RIGHT].include? key
-          @handler.handle_key_down(key)
-        end
+        @handler.handle_key_down(key) unless mouse_key?(key)
       end
 
       def button_up(key)
-        if [Gosu::MS_LEFT, Gosu::MS_RIGHT].include? key
-          return @handler.handle_mouse_down(key, mouse_x, mouse_y)
-        end
-        @handler.handle_key_up(key)
+        return @handler.handle_key_up(key) unless mouse_key?(key)
+        @handler.handle_mouse_down(key, mouse_x, mouse_y)
       end
 
       def display_button(button)
@@ -41,6 +37,12 @@ module NeedNotToSpeed
 
       def update
         @handler.update
+      end
+
+      private
+
+      def mouse_key?(key)
+        [Gosu::MS_LEFT, Gosu::MS_RIGHT].include? key
       end
     end
   end

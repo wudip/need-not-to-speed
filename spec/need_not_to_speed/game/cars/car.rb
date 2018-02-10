@@ -21,5 +21,4 @@ RSpec.describe NeedNotToSpeed::Game::Car do
       expect(rotation_start).to eq rotation_end
     end
   end
-
 end

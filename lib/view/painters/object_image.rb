@@ -1,4 +1,5 @@
 require 'view/painters/painter'
+require 'view/ui_components/support/point'
 
 module NeedNotToSpeed
   module View
@@ -15,9 +16,13 @@ module NeedNotToSpeed
       def draw
         path = IMAGE_DIR + @object.img_path + IMAGE_EXTENSION
         image = Gosu::Image.new(path)
-        draw_rot(image, @object.pos_x, @object.pos_y, 2, @object.rotation)
+        position = Point.new(@object.pos_x, @object.pos_y)
+        draw_rot(image, position, 2, @object.rotation)
+        draw_debug_points
+      end
 
-        @object.get_pixels.each do |pixel|
+      def draw_debug_points
+        @object.collision_pixels.each do |pixel|
           draw_point(pixel[:x], pixel[:y], 2)
         end
       end

@@ -19,7 +19,8 @@ module NeedNotToSpeed
       end
 
       def draw
-        Gosu.draw_rect(@pos_x, @pos_y, @width, @height, @color) unless @color.nil?
+        color_nil = @color.nil?
+        Gosu.draw_rect(@pos_x, @pos_y, @width, @height, @color) unless color_nil
         @children.each(&:draw)
       end
 

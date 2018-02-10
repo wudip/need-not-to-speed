@@ -50,7 +50,9 @@ module NeedNotToSpeed
       def add_button(title, name, x, y)
         width = self.class.button_width
         height = self.class.button_height
-        btn = TextButton.new(title, name, Point.new(x, y), Dimensions.new(width, height))
+        point = Point.new(x, y)
+        dimensions = Dimensions.new(width, height)
+        btn = TextButton.new(title, name, point, dimensions)
         @buttons.push(btn)
       end
 

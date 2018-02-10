@@ -1,17 +1,18 @@
 
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "need_not_to_speed/version"
+require 'need_not_to_speed/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "need_not_to_speed"
+  spec.name          = 'need_not_to_speed'
   spec.version       = NeedNotToSpeed::VERSION
   spec.authors       = ['Petr Wudi']
   spec.email         = ['petr.wudi@gmail.com']
   spec.license       = 'MIT'
 
-  spec.summary       = %q{A game with cars where you have to obey traffic law.}
-  spec.description   = %q{A game when player has to finish as fast as possible without breaking any traffic law.}
+  spec.summary       = 'A game with cars where you have to obey traffic law'
+  spec.description   = 'A game when player has to finish as fast as possible ' \
+                       'without breaking any traffic law.'
   spec.homepage      = 'https://github.com/wudip/need-not-to-speed'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|

@@ -40,7 +40,7 @@ module NeedNotToSpeed
         @radius
       end
 
-      def get_pixels(translation_x, translation_y, rotation)
+      def collision_pixels(translation_x, translation_y, rotation)
         new_points = []
         @points.each do |point|
           x = rotate_x(rotation, point[:x], point[:y])
@@ -84,4 +84,3 @@ module NeedNotToSpeed
     end
   end
 end
-

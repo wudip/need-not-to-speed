@@ -6,6 +6,21 @@ module NeedNotToSpeed
   # Need not to speed - actual game logic (one level) without any controls or
   # view layer
   module Game
+    KEY_DOWN_ACTIONS = {
+      Gosu::KbLeft => proc { |car| car.state.turning_left = true },
+      Gosu::KbRight => proc { |car| car.state.turning_right = true },
+      Gosu::KbUp => proc { |car| car.state.speeding_up = true },
+      Gosu::KbDown => proc { |car| car.state.slowing_down = true },
+      Gosu::KbSpace => proc { |car| car.state.braking = true }
+    }.freeze
+    KEY_UP_ACTIONS = {
+      Gosu::KbLeft => proc { |car| car.state.turning_left = false },
+      Gosu::KbRight => proc { |car| car.state.turning_right = false },
+      Gosu::KbUp => proc { |car| car.state.speeding_up = false },
+      Gosu::KbDown => proc { |car| car.state.slowing_down = false },
+      Gosu::KbSpace => proc { |car| car.state.braking = false },
+      Gosu::KbL => proc { |car| car.state.lights_on = !car.state.lights_on }
+    }.freeze
     # Class controlling whole game. It computes every object's position, it's
     # position, stores score and so on. It also sends data to display to the
     # view layer.
@@ -56,35 +71,11 @@ module NeedNotToSpeed
       def click_button(_button) end
 
       def handle_key_down(key)
-        case key
-        when Gosu::KbLeft
-          @car.state.turning_left = true
-        when Gosu::KbRight
-          @car.state.turning_right = true
-        when Gosu::KbUp
-          @car.state.speeding_up = true
-        when Gosu::KbDown
-          @car.state.slowing_down = true
-        when Gosu::KbSpace
-          @car.state.braking = true
-        end
+        KEY_DOWN_ACTIONS[key].call(@car)
       end
 
       def handle_key_up(key)
-        case key
-        when Gosu::KbLeft
-          @car.state.turning_left = false
-        when Gosu::KbRight
-          @car.state.turning_right = false
-        when Gosu::KbUp
-          @car.state.speeding_up = false
-        when Gosu::KbDown
-          @car.state.slowing_down = false
-        when Gosu::KbSpace
-          @car.state.braking = false
-        when Gosu::KbL
-          @car.state.lights_on = !@car.state.lights_on
-        end
+        KEY_UP_ACTIONS[key].call(@car)
       end
 
       def translation_x

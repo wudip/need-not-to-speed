@@ -4,7 +4,7 @@ require 'model/game/cars/rotating_front_light'
 
 module NeedNotToSpeed
   module Game
-    # Something that should look and behave like Cintroën Saxo
+    # Something that should look and behave like Cintroen Saxo
     class Saxo < Car
       class << self
         def boundaries
@@ -19,20 +19,23 @@ module NeedNotToSpeed
       # @param y [Integer] vertical position of the car
       def initialize(x, y)
         super(x, y)
-        @width = 150
-        @height = 48
         @img_path = 'saxo'
-        @wheels_front = 22
-        @wheels_rear = 100
         @acceleration = 0.15
         @speed_max = 4
         @slowing_coefficient = 0.3 * @acceleration
         @speed_reverse_min = -2
-        compute_wheelbase
         initialize_lights
       end
 
-      private
+      protected
+
+      # Sets up stuff related to dimensions of the car
+      def initialize_dimensions
+        @width = 150
+        @height = 48
+        @wheels_front = 22
+        @wheels_rear = 100
+      end
 
       # Places lights on the car
       def initialize_lights

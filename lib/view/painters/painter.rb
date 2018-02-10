@@ -25,19 +25,17 @@ module NeedNotToSpeed
 
       # Draws an image with rotation
       # @param image the image to draw
-      # @param x [Integer] horizontal position of the center of the image (from
-      # left side of the map)
-      # @param y [Integer] vertical position of the center of the image (from
-      # top of the map)
+      # @param x [Point] position of the center of the image (from top left side
+      # of the map)
       # @param layer [Integer] z coordinate - the image covers all objects with
       # lower layer
       # @param rotation [Integer] rotation of the image, in degrees, 0 = no
       # rotation
       # @param center_x [Float] horizontal center of rotation (in percent of the
       # image, between 0 and 1)
-      def draw_rot(image, x, y, layer, rotation, center_x = 0.5)
-        x += @world.translation_x
-        y += @world.translation_y
+      def draw_rot(image, position, layer, rotation, center_x = 0.5)
+        x = position.pos_x + @world.translation_x
+        y = position.pos_y + @world.translation_y
         image.draw_rot(x, y, layer, rotation, center_x)
       end
 

@@ -30,11 +30,8 @@ module NeedNotToSpeed
       end
 
       def set_default_values
-        @width = 150
-        @height = 50
+        initialize_dimensions
         @img_path = nil
-        @wheels_front = 35
-        @wheels_rear = 122
         @acceleration = 0.05
         @rotation = -Math::PI / 2
         @speed_max = 0.05
@@ -43,13 +40,6 @@ module NeedNotToSpeed
         @speed = 0
         @velocity_x = 0
         @velocity_y = 0
-      end
-
-      def compute_wheelbase
-        @wheelbase = @wheels_rear - @wheels_front
-        @wheelbase_center = 1 - ((@wheels_front + @wheels_rear) / 2).to_f / @width
-        x_center = (width - (@wheels_front + @wheels_rear)) / 2
-        @core.center_points(x_center, 0)
       end
 
       def speed_up
@@ -93,17 +83,13 @@ module NeedNotToSpeed
 
       def turn_left
         @wheels.turn_left
-        ta = turning_angle
-        @rotation -= ta if @speed > 0
-        @rotation += ta if @speed < 0
+        @rotation -= turning_angle
         check_rotation_constraints
       end
 
       def turn_right
         @wheels.turn_right
-        ta = turning_angle
-        @rotation += ta if @speed > 0
-        @rotation -= ta if @speed < 0
+        @rotation += turning_angle
         check_rotation_constraints
       end
 
@@ -113,7 +99,8 @@ module NeedNotToSpeed
       end
 
       def turning_angle
-        turning_angle_delta(@speed)
+        turning_angle_delta(@speed) if @speed > 0
+        -turning_angle_delta(@speed) if @speed < 0
       end
 
       def turning_angle_delta(delta)
@@ -133,15 +120,31 @@ module NeedNotToSpeed
         state.lights_on ? @lights : []
       end
 
-      def get_pixels
-        @core.get_pixels(@pos_x, @pos_y, @rotation)
+      def collision_pixels
+        @core.collision_pixels(@pos_x, @pos_y, @rotation)
       end
 
       def last_stop
         [@last_stop[:x], @last_stop[:y]]
       end
 
-      private
+      protected
+
+      def compute_wheelbase
+        @wheelbase = @wheels_rear - @wheels_front
+        wheel_center = (@wheels_front + @wheels_rear) / 2
+        @wheelbase_center = 1 - wheel_center.to_f / @width
+        x_center = (width - (@wheels_front + @wheels_rear)) / 2
+        @core.center_points(x_center, 0)
+      end
+
+      # Sets up stuff related to dimensions of the car
+      def initialize_dimensions
+        @width = 150
+        @height = 50
+        @wheels_front = 35
+        @wheels_rear = 122
+      end
 
       def wheels_angle_concave
         Math::PI - @wheels.rotation

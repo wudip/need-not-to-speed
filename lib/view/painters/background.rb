@@ -4,7 +4,7 @@ module NeedNotToSpeed
   module View
     # Background of a game (image of surface on which car moves)
     class Background < Painter
-      PATH_TEMPLATE = 'lib/images/map/map_%{level}.png'.freeze
+      PATH_TEMPLATE = 'lib/images/map/map_%<level>s.png'.freeze
       def initialize(world, level)
         super(world)
         path = format(PATH_TEMPLATE, level: level)

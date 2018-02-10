@@ -9,7 +9,8 @@ module NeedNotToSpeed
       # Gets all objects placed on the map
       attr_reader :objects
       # Creates new map
-      # @param level_name [String] name of the level (to load proper terrain file)
+      # @param level_name [String] name of the level (to load the right terrain
+      # file)
       def initialize(level_name)
         @width = 1000
         @height = 750
@@ -75,7 +76,7 @@ module NeedNotToSpeed
       # keys: x and y specifying x and y coords of the point where collision
       # occurred (or just first point discovered in case of multiple collision)
       def check_collision_terrain(object)
-        object.get_pixels.each do |pixel|
+        object.collision_pixels.each do |pixel|
           x = pixel[:x]
           y = pixel[:y]
           return { x: x, y: y } if @terrain.terrain_type(x, y) == :blocked
@@ -97,7 +98,7 @@ module NeedNotToSpeed
         nil
       end
 
-      # @return [Boolean] true if specified object reached final area, false if not
+      # @return [Boolean] whether specified object reached final area
       def reached_end?(object)
         return false if @final_area.nil?
         @final_area.inside?(object)
@@ -112,7 +113,7 @@ module NeedNotToSpeed
       # keys: x and y specifying x and y coords of the point where collision
       # occurred (or just first point discovered in case of multiple collision)
       def check_collision_objects(o0, o1)
-        o0.get_pixels.each do |p0|
+        o0.collision_pixels.each do |p0|
           collision = check_collision_pixel(o1, p0[:x].to_i, p0[:y].to_i)
           return collision unless collision.nil?
         end
@@ -127,7 +128,7 @@ module NeedNotToSpeed
       # keys: x and y specifying x and y coords of the point where collision
       # occurred
       def check_collision_pixel(object, x, y)
-        object.get_pixels.each do |pixel|
+        object.collision_pixels.each do |pixel|
           x1 = pixel[:x].to_i
           y1 = pixel[:y].to_i
           return { x: x, y: y } if x1 == x && y1 == y

@@ -12,20 +12,25 @@ module NeedNotToSpeed
       # @param y [Integer] vertical position of the car
       def initialize(x, y)
         super(x, y)
-        @width = 150
-        @height = 48
         @img_path = 't603'
-        @wheels_front = 31
-        @wheels_rear = 126
+        initialize_dimensions
         @acceleration = 0.1
         @speed_max = 4
         @slowing_coefficient = 0.3 * @acceleration
         @speed_reverse_min = -2
-        compute_wheelbase
         initialize_lights
       end
 
       private
+
+      # Sets up stuff related to dimensions of the car
+      def initialize_dimensions
+        @width = 150
+        @height = 48
+        @wheels_front = 31
+        @wheels_rear = 126
+        compute_wheelbase
+      end
 
       # Places lights on the car
       def initialize_lights

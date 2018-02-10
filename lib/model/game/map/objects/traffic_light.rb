@@ -26,10 +26,7 @@ module NeedNotToSpeed
       # Updates traffic light's state
       def update
         @time += 1
-        if @time >= MAX_TIME
-          @time = 0
-          switch_mode
-        end
+        return if @time < MAX_TIME
       end
 
       # Changes mode from red to green and vice versa
@@ -45,11 +42,12 @@ module NeedNotToSpeed
 
       # @return [List] all points of the traffic lights that could collide with
       # another objects (it's collision when they are placed on the same point)
-      def get_pixels
+      def collision_pixels
         @mode == :red ? @line : []
       end
 
       private
+
       # First part of file identifier (the second one depends on current color)
       IMG_URL_PREFIX = 'traffic_light_'.freeze
 
@@ -78,7 +76,7 @@ module NeedNotToSpeed
 
       def init_line_horizontal(length)
         y = @pos_y
-        sign = @rotation == 0 ? 1 : -1
+        sign = @rotation.zero? ? 1 : -1
         length.times do
           @line.push(x: @pos_x, y: y)
           y += sign
