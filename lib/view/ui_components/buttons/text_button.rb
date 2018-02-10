@@ -4,12 +4,13 @@ module NeedNotToSpeed
   module View
     # A button with a text
     class TextButton < Button
+      DEFAULT_FONT_COLOR = Gosu::Color::WHITE
       attr_accessor :font_color
       def initialize(title, name, position, size)
         super(name, position, size)
         @title = title
         compute_message
-        @font_color = Gosu::Color::BLUE
+        @font_color = DEFAULT_FONT_COLOR
       end
 
       def compute_message

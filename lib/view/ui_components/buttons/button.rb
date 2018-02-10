@@ -4,6 +4,7 @@ module NeedNotToSpeed
   module View
     # A button displayed on the screen
     class Button
+      DEFAULT_BACKGROUND = Gosu::Color.argb(0xff_00352a)
       attr_accessor :color
       attr_reader :name
       def initialize(name, position, size)
@@ -13,7 +14,7 @@ module NeedNotToSpeed
         @width = size.width
         @height = size.height
         compute_message
-        @color = Gosu::Color::GREEN
+        @color = DEFAULT_BACKGROUND
       end
 
       def draw

@@ -5,6 +5,7 @@ module NeedNotToSpeed
     # A window that can be displayed by `show` method and display some stuff
     # on user's screen
     class Window < Gosu::Window
+      BACKGROUND_COLOR = Gosu::Color.argb(0xff_005643)
       def initialize(handler, width, height)
         @width = width
         @height = height
@@ -14,7 +15,7 @@ module NeedNotToSpeed
       end
 
       def draw
-        Gosu.draw_rect(0, 0, @width, @height, Gosu::Color::RED)
+        Gosu.draw_rect(0, 0, @width, @height, BACKGROUND_COLOR)
         @handler.things_to_draw.each(&:draw)
       end
 
