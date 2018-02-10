@@ -70,6 +70,7 @@ module NeedNotToSpeed
       end
 
       def draw_debug_points
+        return unless NeedNotToSpeed::DEBUG_MODE
         @car.collision_pixels.each do |pixel|
           draw_point(pixel[:x], pixel[:y], 4)
         end

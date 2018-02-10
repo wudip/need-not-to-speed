@@ -8,6 +8,7 @@ module NeedNotToSpeed
   # It also contains objects to draw game window, listen to key events,
   # and draw menus.
   class NeedNotToSpeed
+    DEBUG_MODE = false
     attr_accessor :current_level
     def start
       @view_layer = View::ViewLayer.new
