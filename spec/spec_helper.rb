@@ -1,11 +1,12 @@
 require 'bundler/setup'
 require 'simplecov'
 require 'rspec/simplecov'
-require 'need_not_to_speed'
 
-SimpleCov.minimum_coverage 95
 SimpleCov.start
-RSpec::SimpleCov.start
+SimpleCov.minimum_coverage 95
+# RSpec::SimpleCov.start
+
+require_relative '../lib/need_not_to_speed'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
