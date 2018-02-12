@@ -1,4 +1,5 @@
-require 'view/ui_components/buttons/button'
+require 'view/ui_components/buttons/text_button'
+require 'view/ui_components/buttons/radio_text_button'
 require 'view/ui_components/support/point'
 require 'view/ui_components/support/dimensions'
 require 'view/ui_components/image_component'
@@ -9,12 +10,9 @@ module NeedNotToSpeed
     # Draws menu on the screen
     class Menu
       IMG_GAME_COMPLETED_PATH = 'msg_game_completed'.freeze
-      @button_width = 300
-      @button_height = 50
-      @button_padding = 20
-      class << self
-        attr_reader :button_width, :button_height, :button_padding
-      end
+      BUTTON_WIDTH = 300
+      BUTTON_HEIGHT = 50
+      BUTTON_PADDING = 20
       attr_reader :buttons
 
       # Creates new menu object
@@ -22,6 +20,7 @@ module NeedNotToSpeed
       def initialize(window)
         @window = window
         @buttons = []
+        @radio_buttons = {}
       end
 
       # All objects (menu parts) that has to be drawn
@@ -37,8 +36,9 @@ module NeedNotToSpeed
         y = button_block_position_top(buttons)
         x = button_block_position_left
         buttons.each do |button|
-          add_button(button[:title], button[:name], x, y)
-          y += self.class.button_height + self.class.button_padding
+          rg = button.key?(:radio_group) ? button[:radio_group] : nil
+          add_button(button[:title], button[:name], x, y, rg)
+          y += BUTTON_HEIGHT + BUTTON_PADDING
         end
       end
 
@@ -47,12 +47,12 @@ module NeedNotToSpeed
       # @param [String] name unique identifier of the menu
       # @param [Integer] x horizontal position of button's left edge
       # @param [Integer] y vertical position of button's top edge
-      def add_button(title, name, x, y)
-        width = self.class.button_width
-        height = self.class.button_height
+      # @param [Symbol, nil] radio_group identifier of group the button
+      # belong to in case it is radio button (or nil otherwise)
+      def add_button(title, name, x, y, radio_group)
         point = Point.new(x, y)
-        dimensions = Dimensions.new(width, height)
-        btn = TextButton.new(title, name, point, dimensions)
+        dimensions = Dimensions.new(BUTTON_WIDTH, BUTTON_HEIGHT)
+        btn = create_button(title, name, point, dimensions, radio_group)
         @buttons.push(btn)
       end
 
@@ -62,7 +62,12 @@ module NeedNotToSpeed
       # @return [String, nil] button's name or nil if there is no button
       def find_button(x, y)
         @buttons.each do |btn|
-          return btn.name if btn.inside_button?(x, y)
+          next unless btn.inside_button?(x, y)
+          if btn.respond_to?(:radio_group)
+            unselect_radio_group(btn.radio_group)
+            btn.select
+          end
+          return btn.name
         end
         nil
       end
@@ -77,8 +82,8 @@ module NeedNotToSpeed
 
       def compute_block_height(buttons)
         number_of_buttons = buttons.length
-        self.class.button_height * number_of_buttons +
-          self.class.button_padding * (number_of_buttons - 1)
+        BUTTON_HEIGHT * number_of_buttons +
+          BUTTON_PADDING * (number_of_buttons - 1)
       end
 
       def button_block_position_top(buttons)
@@ -87,7 +92,31 @@ module NeedNotToSpeed
       end
 
       def button_block_position_left
-        (ViewLayer.window_width - self.class.button_width) / 2
+        (ViewLayer.window_width - BUTTON_WIDTH) / 2
+      end
+
+      def create_button(title, name, point, dimensions, radio_group)
+        is_ordinal = radio_group.nil?
+        return TextButton.new(title, name, point, dimensions) if is_ordinal
+        create_radio_button(title, name, point, dimensions, radio_group)
+      end
+
+      def create_radio_button(title, name, point, dimensions, radio_group)
+        btn = RadioTextButton.new(title, name, point, dimensions, radio_group)
+        if @radio_buttons.key?(radio_group)
+          group = @radio_buttons[radio_group]
+        else
+          group = []
+          @radio_buttons[radio_group] = group
+          btn.select
+        end
+        group.push(btn)
+        btn
+      end
+
+      def unselect_radio_group(group_name)
+        return unless @radio_buttons.key?(group_name)
+        @radio_buttons[group_name].each(&:unselect)
       end
     end
   end

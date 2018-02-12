@@ -15,10 +15,12 @@ module NeedNotToSpeed
       @controls_model = ControlsModel.new(@view_layer, self)
       @current_level = 0
       @view_layer.show
+      @car_type = :saxo
     end
 
     def start_game
       @controls_model.display_loader
+      @car_type = @controls_model.car_type
       if !@game.nil? && @current_level == @game.level
         @game.start
       else
@@ -28,7 +30,7 @@ module NeedNotToSpeed
 
     def new_game
       Thread.new do # Because of loading screen
-        @game = Game::Game.new(@view_layer, self, @current_level)
+        @game = Game::Game.new(@view_layer, self, @current_level, @car_type)
         @game.start
       end
     end

@@ -1,5 +1,6 @@
 require 'model/game/map/map'
 require 'model/game/cars/saxo'
+require 'model/game/cars/t603'
 require 'model/game/level/level'
 
 module NeedNotToSpeed
@@ -32,10 +33,12 @@ module NeedNotToSpeed
       # @param [NeedNotToSpeed] event_handler handler object that handles
       # events beyond the game itself (game end, score, ...)
       # @param [Integer] level_number unique identifier of the level
-      def initialize(viewer, event_handler, level_number)
+      # @param [Symbol] car_type identifier of type of the car (:saxo or :t603)
+      def initialize(viewer, event_handler, level_number, car_type)
         @viewer = viewer
         @event_handler = event_handler
         @level = level_number
+        @car_type = car_type
         @level_object = Level.new(level_number.to_s)
         @map = @level_object.map
         @active_objects = @map.active_objects
@@ -91,7 +94,8 @@ module NeedNotToSpeed
       private
 
       def init_player_car(x, y)
-        @car = Saxo.new(x, y)
+        @car = Saxo.new(x, y) if @car_type == :saxo
+        @car = T603.new(x, y) if @car_type != :saxo
       end
     end
   end

@@ -4,6 +4,8 @@ module NeedNotToSpeed
   # so, this class just decides what to do and calls appropriate method to
   # display the controls)
   class ControlsModel
+    attr_reader :car_type
+
     # Number of all levels in the game
     NUMBER_OF_LEVELS = 1
 
@@ -14,6 +16,7 @@ module NeedNotToSpeed
     def initialize(viewer, daddy)
       @viewer = viewer
       @daddy = daddy
+      @car_type = :saxo
       display_menu
     end
 
@@ -21,11 +24,19 @@ module NeedNotToSpeed
     def display_menu
       @mode = :menu
       @buttons = { start: proc { start_game },
+                   saxo: proc { @car_type = :saxo },
+                   t603: proc { @car_type = :t603 },
                    end: proc { exit },
                    restart: proc { start_game },
                    next_level: proc { next_level } }
-      @viewer.display_menu([{ title: 'Start', name: 'start' },
-                            { title: 'End', name: 'end' }])
+      @viewer.display_menu([
+                             { title: 'Start', name: 'start' },
+                             { title: 'Set car Saxo', name: 'saxo',
+                               radio_group: :cars },
+                             { title: 'Set car T603', name: 't603',
+                               radio_group: :cars },
+                             { title: 'End', name: 'end' }
+                           ])
       @viewer.handler = self
     end
 
