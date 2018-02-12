@@ -21,7 +21,6 @@ module NeedNotToSpeed
       # @param y [Integer] vertical position of the car
       def initialize(x, y)
         super(x, y)
-        puts 'init 603'
         @img_path = 't603'
         @acceleration = 0.1
         @speed_max = 4
