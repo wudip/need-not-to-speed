@@ -11,6 +11,13 @@
       "end_x" : 3067,
       "end_y" : 1741,
       "rotation" : 0
+    },
+    {
+      "type" : "traffic_lights",
+      "x" : 1252,
+      "y" : 2938,
+      "rotation" : 90,
+      "line_length": 170
     }
   ],
   "final_area" : {
