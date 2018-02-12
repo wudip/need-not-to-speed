@@ -4,7 +4,8 @@ module NeedNotToSpeed
     # with same collision behaviour as a wall
     class TrafficLight
       # How long does one color stay on the lights
-      MAX_TIME = 200
+      MAX_TIME = 100
+      TIME_TOLERATION = 20
       attr_reader :pos_x, :pos_y, :rotation
       # Creates new traffic lights
       # @param center_x [Integer] x position of traffic light's column center
@@ -27,6 +28,8 @@ module NeedNotToSpeed
       def update
         @time += 1
         return if @time < MAX_TIME
+        @time = 0
+        switch_mode
       end
 
       # Changes mode from red to green and vice versa
@@ -43,7 +46,7 @@ module NeedNotToSpeed
       # @return [List] all points of the traffic lights that could collide with
       # another objects (it's collision when they are placed on the same point)
       def collision_pixels
-        @mode == :red ? @line : []
+        @mode == :red && @time > TIME_TOLERATION ? @line : []
       end
 
       private
